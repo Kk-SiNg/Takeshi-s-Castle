@@ -2,8 +2,8 @@
 #include <WiFiUdp.h>
 
 // WiFi credentials
-const char* ssid = "Takeshi's Troops";
-const char* password = "rjk_gjk";
+const char* ssid = "KKS's phone";
+const char* password = "kvsandkks";
 
 // UDP setup
 WiFiUDP udp;
@@ -11,12 +11,12 @@ const unsigned int localPort = 4210;
 char packetBuffer[255];
 
 // Motor pins (NodeMCU v2 / D1 Mini)
-#define IN_1 D1    // GPIO5
-#define IN_2 D2    // GPIO4
-#define IN_3 D5   // GPIOO
-#define IN_4 D6   // GPIO2
-#define EN_A D7     // GPIO14 - PWM for left motor speed
-#define EN_B D8    // GPIO12 - PWM for right motor speed
+#define MOTOR_LEFT_FWD D1    // GPIO5
+#define MOTOR_LEFT_BWD D2    // GPIO4
+#define MOTOR_RIGHT_FWD D3   // GPIOO
+#define MOTOR_RIGHT_BWD D4   // GPIO2
+#define MOTOR_LEFT_EN D5     // GPIO14 - PWM for left motor speed
+#define MOTOR_RIGHT_EN D6    // GPIO12 - PWM for right motor speed
 
 // Speed settings
 int currentSpeed = 512;      // Default speed (0-1023 for ESP8266)
@@ -39,12 +39,12 @@ void setup() {
   delay(100);
   
   // Setup motor pins
-  pinMode(IN_1, OUTPUT);
-  pinMode(IN_2, OUTPUT);
-  pinMode(IN_3, OUTPUT);
-  pinMode(IN_4, OUTPUT);
-  pinMode(EN_A, OUTPUT);
-  pinMode(EN_B, OUTPUT);
+  pinMode(MOTOR_LEFT_FWD, OUTPUT);
+  pinMode(MOTOR_LEFT_BWD, OUTPUT);
+  pinMode(MOTOR_RIGHT_FWD, OUTPUT);
+  pinMode(MOTOR_RIGHT_BWD, OUTPUT);
+  pinMode(MOTOR_LEFT_EN, OUTPUT);
+  pinMode(MOTOR_RIGHT_EN, OUTPUT);
   
   // Initial state - motors off
   stopMotors();
@@ -110,48 +110,48 @@ void executeCommand(String cmd) {
 }
 
 void forward() {
-  digitalWrite(IN_1, HIGH);
-  digitalWrite(IN_2, LOW);
-  digitalWrite(IN_3, HIGH);
-  digitalWrite(IN_4, LOW);
-  analogWrite(EN_A, currentSpeed);
-  analogWrite(EN_B, currentSpeed);
+  digitalWrite(MOTOR_LEFT_FWD, HIGH);
+  digitalWrite(MOTOR_LEFT_BWD, LOW);
+  digitalWrite(MOTOR_RIGHT_FWD, HIGH);
+  digitalWrite(MOTOR_RIGHT_BWD, LOW);
+  analogWrite(MOTOR_LEFT_EN, currentSpeed);
+  analogWrite(MOTOR_RIGHT_EN, currentSpeed);
 }
 
 void backward() {
-  digitalWrite(IN_1, LOW);
-  digitalWrite(IN_2, HIGH);
-  digitalWrite(IN_3, LOW);
-  digitalWrite(IN_4, HIGH);
-  analogWrite(EN_A, currentSpeed);
-  analogWrite(EN_B, currentSpeed);
+  digitalWrite(MOTOR_LEFT_FWD, LOW);
+  digitalWrite(MOTOR_LEFT_BWD, HIGH);
+  digitalWrite(MOTOR_RIGHT_FWD, LOW);
+  digitalWrite(MOTOR_RIGHT_BWD, HIGH);
+  analogWrite(MOTOR_LEFT_EN, currentSpeed);
+  analogWrite(MOTOR_RIGHT_EN, currentSpeed);
 }
 
 void left() {
-  digitalWrite(IN_1, LOW);
-  digitalWrite(IN_2, HIGH);
-  digitalWrite(IN_3, HIGH);
-  digitalWrite(IN_4, LOW);
-  analogWrite(EN_A, currentSpeed);
-  analogWrite(EN_B, currentSpeed);
+  digitalWrite(MOTOR_LEFT_FWD, LOW);
+  digitalWrite(MOTOR_LEFT_BWD, HIGH);
+  digitalWrite(MOTOR_RIGHT_FWD, HIGH);
+  digitalWrite(MOTOR_RIGHT_BWD, LOW);
+  analogWrite(MOTOR_LEFT_EN, currentSpeed);
+  analogWrite(MOTOR_RIGHT_EN, currentSpeed);
 }
 
 void right() {
-  digitalWrite(IN_1, HIGH);
-  digitalWrite(IN_2, LOW);
-  digitalWrite(IN_3, LOW);
-  digitalWrite(IN_4, HIGH);
-  analogWrite(EN_A, currentSpeed);
-  analogWrite(EN_B, currentSpeed);
+  digitalWrite(MOTOR_LEFT_FWD, HIGH);
+  digitalWrite(MOTOR_LEFT_BWD, LOW);
+  digitalWrite(MOTOR_RIGHT_FWD, LOW);
+  digitalWrite(MOTOR_RIGHT_BWD, HIGH);
+  analogWrite(MOTOR_LEFT_EN, currentSpeed);
+  analogWrite(MOTOR_RIGHT_EN, currentSpeed);
 }
 
 void stopMotors() {
-  digitalWrite(IN_1, LOW);
-  digitalWrite(IN_2, LOW);
-  digitalWrite(IN_3, LOW);
-  digitalWrite(IN_4, LOW);
-  analogWrite(EN_A, 0);
-  analogWrite(EN_B, 0);
+  digitalWrite(MOTOR_LEFT_FWD, LOW);
+  digitalWrite(MOTOR_LEFT_BWD, LOW);
+  digitalWrite(MOTOR_RIGHT_FWD, LOW);
+  digitalWrite(MOTOR_RIGHT_BWD, LOW);
+  analogWrite(MOTOR_LEFT_EN, 0);
+  analogWrite(MOTOR_RIGHT_EN, 0);
 }
 
 void increaseSpeed() {
