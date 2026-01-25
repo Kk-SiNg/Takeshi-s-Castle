@@ -93,6 +93,7 @@ void executeCommand(String cmd) {
   Serial.println(currentSpeed);
   
   if (cmd == "F") {          // Forward
+    Serial.println("Forward");
     forward();
   } else if (cmd == "B") {   // Backward
     backward();
@@ -116,6 +117,7 @@ void forward() {
   digitalWrite(MOTOR_RIGHT_BWD, LOW);
   analogWrite(MOTOR_LEFT_EN, currentSpeed);
   analogWrite(MOTOR_RIGHT_EN, currentSpeed);
+  delay(30);
 }
 
 void backward() {
@@ -125,6 +127,7 @@ void backward() {
   digitalWrite(MOTOR_RIGHT_BWD, HIGH);
   analogWrite(MOTOR_LEFT_EN, currentSpeed);
   analogWrite(MOTOR_RIGHT_EN, currentSpeed);
+  delay(30);
 }
 
 void left() {
@@ -134,6 +137,7 @@ void left() {
   digitalWrite(MOTOR_RIGHT_BWD, LOW);
   analogWrite(MOTOR_LEFT_EN, currentSpeed);
   analogWrite(MOTOR_RIGHT_EN, currentSpeed);
+  delay(30);
 }
 
 void right() {
@@ -143,6 +147,7 @@ void right() {
   digitalWrite(MOTOR_RIGHT_BWD, HIGH);
   analogWrite(MOTOR_LEFT_EN, currentSpeed);
   analogWrite(MOTOR_RIGHT_EN, currentSpeed);
+  delay(30);
 }
 
 void stopMotors() {
@@ -152,6 +157,7 @@ void stopMotors() {
   digitalWrite(MOTOR_RIGHT_BWD, LOW);
   analogWrite(MOTOR_LEFT_EN, 0);
   analogWrite(MOTOR_RIGHT_EN, 0);
+  delay(30);
 }
 
 void increaseSpeed() {
